@@ -170,6 +170,8 @@ public struct NavigationAction: Equatable {
 		case deeper
 		/// The new path shares the same parent. Example: `/favorite/movies` → `/favorite/music`.
 		case sideways
+        /// The new path shares the same ancestor. Example: `/favorite/movies/id` → `/favorite/music/id`.
+        case ancestor
 	}
 	
 	/// The kind of navigation that occurred.
@@ -209,6 +211,8 @@ public struct NavigationAction: Equatable {
 			}
             else if currentComponents.first != previousComponents.first {
                 direction = .other
+            } if currentComponents.first == previousComponents.first {
+                direction = .ancestor
             } else {
                 direction = .higher
             }
