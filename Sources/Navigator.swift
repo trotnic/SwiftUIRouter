@@ -161,9 +161,11 @@ extension Navigator: Equatable {
 public struct NavigationAction: Equatable {
 	/// Directional difference between the current path and the previous path.
 	public enum Direction {
-		/// The new path is higher up in the hierarchy *or* a completely different path.
+		/// The new path is higher up in the hierarchy
 		/// Example: `/user/settings` → `/user`. Or `/favorite/music` → `/news/latest`.
 		case higher
+        /// The path is a completely different path
+        case other
 		/// The new path is deeper in the hierarchy. Example: `/news` → `/news/latest`.
 		case deeper
 		/// The new path shares the same parent. Example: `/favorite/movies` → `/favorite/music`.
@@ -205,9 +207,11 @@ public struct NavigationAction: Equatable {
 			{
 				direction = .sideways
 			}
-			else {
-				direction = .higher
-			}
+            else if currentComponents.first != previousComponents.first {
+                direction = .other
+            } else {
+                direction = .higher
+            }
 		}
 	}
 }
