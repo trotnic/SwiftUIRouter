@@ -211,7 +211,7 @@ public struct NavigationAction: Equatable {
 			}
             else if currentComponents.first != previousComponents.first {
                 direction = .other
-            } if currentComponents.first == previousComponents.first {
+            } else if currentComponents.first == previousComponents.first {
                 direction = .ancestor
             } else {
                 direction = .higher
